@@ -1,0 +1,36 @@
+ <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+     android:background="@drawable/border"
+     >
+
+
+     <TextView
+         android:id="@+id/tvElementName"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+
+         android:layout_marginTop="4dp"
+         android:layout_marginBottom="4dp"
+         android:text="Element Name"
+         android:textSize="14sp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+
+     <TextView
+         android:id="@+id/tvElementQuantity"
+         android:layout_width="0dp"
+
+         android:layout_height="wrap_content"
+         android:text="Quantity"
+         android:textSize="14sp"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="@+id/tvElementName" />
+
+ </androidx.constraintlayout.widget.ConstraintLayout>

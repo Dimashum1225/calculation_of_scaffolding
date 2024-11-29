@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Расчет строительных лесов</string>
+    <string name="edit_wall">Редактировать стену</string>
+    <string name="add_wall">Добавить данные стены\n</string>
+    <string name="save">Сохранить</string>
+    <string name="fill_fields_correctly">Заполните все поля корректно!</string>
+    <string name="cancel">Отмена</string>
+</resources>
