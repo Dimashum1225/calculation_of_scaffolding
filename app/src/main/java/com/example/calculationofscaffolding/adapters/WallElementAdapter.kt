@@ -30,7 +30,7 @@ class WallElementAdapter(private var elements: List<Element>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: WallElementViewHolder, position: Int) {
         val element = elements[position]
         holder.elementName.text = element.name
-        holder.elementQuantity.text = "Кол-во: ${element.quantity}"
+        holder.elementQuantity.text = "${element.quantity}"
 
     }
 

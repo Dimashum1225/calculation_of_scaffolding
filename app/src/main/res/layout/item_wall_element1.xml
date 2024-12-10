@@ -12,9 +12,10 @@
 
      <TextView
          android:id="@+id/tvElementName"
-         android:layout_width="0dp"
+         android:layout_width="wrap_content"
          android:layout_height="wrap_content"
 
+         android:layout_marginLeft="10dp"
          android:layout_marginTop="4dp"
          android:layout_marginBottom="4dp"
          android:text="Element Name"
@@ -25,9 +26,9 @@
 
      <TextView
          android:id="@+id/tvElementQuantity"
-         android:layout_width="0dp"
-
+         android:layout_width="wrap_content"
          android:layout_height="wrap_content"
+         android:layout_marginRight="60dp"
          android:text="Quantity"
          android:textSize="14sp"
          app:layout_constraintEnd_toEndOf="parent"

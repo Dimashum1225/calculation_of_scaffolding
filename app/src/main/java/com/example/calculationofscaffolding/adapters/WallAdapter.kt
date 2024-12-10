@@ -43,10 +43,10 @@ class WallAdapter(
             }
 
         // Отображаем информацию о стене
-        holder.wallNumberTv.text = "Стена № ${position+1}"
+        holder.wallNumberTv.text = "Фасад № ${position+1}"
         holder.wallInfo.text = "Ширина: ${wall.width}, Высота: ${wall.height}, Ярусы: ${wall.tiers},"
         holder.totalSquare.text = "Площадь стены: ${wall.width * wall.height}"
-        holder.totalPrice.text = "Итого : ${totalPrice}"
+        holder.totalPrice.text = "Итого : ${totalPrice}p"
         // Настраиваем вложенный RecyclerView для отображения элементов стены
         holder.elementsRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context)
         val elementAdapter = WallElementAdapter(wall.elements)

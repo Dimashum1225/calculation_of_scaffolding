@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         val addWall:Button = binding.add
 
 
-
         setupRecyclers()
         clearall.setOnClickListener {
             // Диалог для запроса "Вы уверены, что хотите очистить все?"
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 .setMessage("Вы уверены, что хотите очистить все?")
                 .setPositiveButton("Да") { dialogInterface, which ->
                     // Когда нажата кнопка "Да"
-                    walls = mutableListOf<Wall>()  // Очищаем список walls
+                    walls.clear()  // Очищаем список walls
                     updateRecyclers(walls)  // Обновляем адаптер с пустым списком
                 }
                 .setNegativeButton("Нет") { dialogInterface, which ->
@@ -138,7 +137,7 @@ class MainActivity : AppCompatActivity() {
         // Отображение номера стены
         val wallNumberTv = dialogView.findViewById<TextView>(R.id.wallNumber)
         val wallsNumber = if (wallToEdit != null) position?.plus(1) ?: walls.size + 1 else walls.size + 1
-        wallNumberTv.text = "Стена № $wallsNumber"
+        wallNumberTv.text = "Фасад № $wallsNumber"
 
         // Поля для ввода данных
         val etWidth = dialogView.findViewById<EditText>(R.id.etWidth)
@@ -268,7 +267,9 @@ class MainActivity : AppCompatActivity() {
         updateTotal(walls)
 
         elementWallWeightAdapter.submitList(elements)
-        updateWallsTableDb(walls)
+        if(!walls.isEmpty()) updateWallsTableDb(walls)
+
+
     }
     fun setupRecyclers(){
         setupWallsRecycler()
@@ -284,7 +285,7 @@ class MainActivity : AppCompatActivity() {
             onDelete = {
                 val builder = android.app.AlertDialog.Builder(this)
                 builder.setTitle("Удаление элемента")
-                builder.setMessage("Вы уверены, что хотите удалить эту стену}\"?")
+                builder.setMessage("Вы уверены, что хотите удалить этот фасадфа}\"?")
                 builder.setPositiveButton("Удалить") { _, _ ->
                     val index = walls.indexOf(it)
                     if (index != -1) {
@@ -323,7 +324,7 @@ class MainActivity : AppCompatActivity() {
         }
         var tvTotalWallSquare:TextView = binding.totalWallsSquare
 
-        tvTotalWallSquare.text = "Общая площадь: \n ${totalSquare} м2"
+        tvTotalWallSquare.text = "Общая площадь:  ${totalSquare} м2"
     }
     fun updateTotalWalsPrice(walls:List<Wall>){
         val totalPrice = walls.sumOf {wall ->
@@ -337,23 +338,27 @@ class MainActivity : AppCompatActivity() {
                 }
         }
         var tvTotalWallPrice:TextView = binding.totalWallsPrice
-        tvTotalWallPrice.text = "Общая цена элементов: \n ${totalPrice} p"
+        tvTotalWallPrice.text = "Общая цена элементов:  ${totalPrice} p"
 
     }
-    fun updateTotalWallsWeight(walls: List<Wall>){
-        val totalWeight = walls.sumOf {wall ->
+    fun updateTotalWallsWeight(walls: List<Wall>) {
+        val totalWeight = walls.sumOf { wall ->
             wall.elements
                 .filter { element ->
-                    !(wall.isJaskSelected && element.name == "пятки")&&
-                    !(wall.isHeelSelected && element.name == "домкрат")
+                    !(wall.isJaskSelected && element.name == "пятки") &&
+                            !(wall.isHeelSelected && element.name == "домкрат")
                 }
-                .sumOf {  element ->
-                element.weight * element.quantity
-            }
+                .sumOf { element ->
+                    element.weight * element.quantity
+                }
         }
-        var tvTotalWeight:TextView = binding.totalWallsWeight
-        tvTotalWeight.text = "Общий вес элементов : \n ${totalWeight} кг"
+
+        val formattedWeight = String.format("%.2f", totalWeight) // Ограничение до 2 знаков после запятой
+
+        val tvTotalWeight: TextView = binding.totalWallsWeight
+        tvTotalWeight.text = "Общий вес элементов: $formattedWeight кг"
     }
+
     fun updateTotalElements(walls: List<Wall>): List<Element> {
         // Создаем Map для хранения обновленных элементов с локальными полями для quantity
         val elementsMap = mutableMapOf<String, Element>()
@@ -436,14 +441,4 @@ class MainActivity : AppCompatActivity() {
         // Возвращаем только те элементы, у которых quantity больше 0
         return elements
     }
-
-
-
-
-
-
-
-
-
-
 }
